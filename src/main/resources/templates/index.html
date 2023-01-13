@@ -91,10 +91,14 @@
         qrbox: {
             width: 150,
             height: 150,
-            showZoomSliderIfSupported: true,
-            defaultZoomValueIfSupported: 2
         },
         fps: 200,
+        useBarCodeDetectorIfSupported: true,
+        rememberLastUsedCamera: true,
+        aspectRatio: 4/3,
+        showTorchButtonIfSupported: true,
+        showZoomSliderIfSupported: true,
+        defaultZoomValueIfSupported: 3
     });
     scanner.render(success, error);
     function success(decodedText, decodedResult) {
