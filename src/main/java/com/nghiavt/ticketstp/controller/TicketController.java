@@ -4,6 +4,7 @@ import com.nghiavt.ticketstp.model.Ticket;
 import com.nghiavt.ticketstp.model.User;
 import com.nghiavt.ticketstp.repository.TicketRepository;
 import com.nghiavt.ticketstp.repository.UserRepository;
+import com.nghiavt.ticketstp.service.LogService;
 import com.nghiavt.ticketstp.service.TicketService;
 import com.nghiavt.ticketstp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class TicketController {
     UserRepository userRepository;
     @Autowired
     UserService userService;
+
+    @Autowired
+    LogService logService;
 
     @CrossOrigin
     @GetMapping("/login/{username}/{pwd}")
@@ -59,6 +63,7 @@ public class TicketController {
             Ticket ticket = tickets.get(0);
             if (!ticket.isEnable()){
                 ticketService.enableTicket(ticket);
+                logService.addLog(id, "Kich hoat");
                 return "Vé " + id + " đã kích hoạt thành công.";
             }
             else {
@@ -79,9 +84,11 @@ public class TicketController {
             if (ticket.isEnable()){
                 if (ticket.isState()){
                     ticketService.outTicket(ticket);
+                    logService.addLog(id, "Ra ngoai");
                     return "Vé " + id + " đã ra ngoài.";
                 }else {
                     ticketService.inTicket(ticket);
+                    logService.addLog(id, "Vao trong");
                     return "Vé " + id + " đã vào trong.";
                 }
             }else {
