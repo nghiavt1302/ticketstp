@@ -67,7 +67,7 @@ public class TicketController {
                 return "Vé " + id + " đã kích hoạt thành công.";
             }
             else {
-                return "Vé " + id + " đã được kích hoạt trước đây. Vui lòng chọn vào/ra.";
+                return "Vé " + id + " đã kích hoạt trước đây.";
             }
         }
         else {
@@ -85,11 +85,11 @@ public class TicketController {
                 if (ticket.isState()){
                     ticketService.outTicket(ticket);
                     logService.addLog(id, "Ra ngoai");
-                    return "Vé " + id + " đã ra ngoài.";
+                    return "Vé " + id + " đã huỷ kích hoạt.";
                 }else {
-                    ticketService.inTicket(ticket);
-                    logService.addLog(id, "Vao trong");
-                    return "Vé " + id + " đã vào trong.";
+//                    ticketService.inTicket(ticket);
+//                    logService.addLog(id, "Vao trong");
+                    return "Vé " + id + " đã huỷ kích hoạt rồi.";
                 }
             }else {
                 return "Vé chưa được kích hoạt.";

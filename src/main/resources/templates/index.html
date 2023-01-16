@@ -54,6 +54,13 @@
         color: brown;
     }
 
+    #d2{
+        text-align: center;
+        font-size: large;
+        color: brown;
+        display: none;
+    }
+
     .msg-div{
         background-color: beige;
         text-align: center;
@@ -65,9 +72,9 @@
         background-color: blue;
         transform: translateY(4px);
     }
-    video{
-        height: 300px;
-    }
+    /*video{*/
+    /*    height: 300px;*/
+    /*}*/
 </style>
 <main>
 
@@ -75,10 +82,11 @@
     <div class="reusltbox">
         <p class="text-result">Mã vé của bạn là:</p>
         <div id="result"></div>
+        <div id="d2">Vé đợt 2</div>
     </div>
     <div class="buttonbox d-grid gap-2">
         <button type="button" class="btn btn-success" onclick="activate()">Kích hoạt</button>
-        <button type="button" class="btn btn-warning" onclick="inAndOut()">Vào/Ra</button>
+        <button type="button" class="btn btn-warning" onclick="inAndOut()">Huỷ kích hoạt</button>
     </div>
     <div class="msg-div">
         <p id="msg"></p>
@@ -89,8 +97,8 @@
     var scannedId = null;
     const scanner = new Html5QrcodeScanner('reader', {
         qrbox: {
-            width: 150,
-            height: 150,
+            width: 250,
+            height: 250,
         },
         fps: 200,
         useBarCodeDetectorIfSupported: true,
@@ -108,6 +116,11 @@
         console.log(`Code matched = ${decodedText}`, decodedResult);
         scannedId = decodedText;
         console.log(scannedId);
+        if(decodedText <= 399 || decodedText == '0411'){
+            document.getElementById("d2").style.display = 'block';
+        }else{
+            document.getElementById("d2").style.display = 'none';
+        }
     }
 
     function error(err) {
@@ -116,8 +129,8 @@
 
     function activate(){
         var xhttp = new XMLHttpRequest();
-        let url = "https://nghiavt.de/";
-        // let url = "http://localhost:8080/"
+        // let url = "https://nghiavt.de/";
+        let url = "http://localhost:8080/"
         let getUrl = url.concat(scannedId);
         console.log(getUrl);
         xhttp.onreadystatechange = function(){
@@ -133,8 +146,8 @@
 
     function inAndOut(){
         var xhttpio = new XMLHttpRequest();
-        let url = "https://nghiavt.de/state/";
-        // let url = "http://localhost:8080/state/"
+        // let url = "https://nghiavt.de/state/";
+        let url = "http://localhost:8080/state/"
         let swapUrl = url.concat(scannedId);
         console.log(swapUrl);
         xhttpio.onreadystatechange = function(){
